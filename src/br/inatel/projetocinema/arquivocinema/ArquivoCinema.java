@@ -1,4 +1,4 @@
-package br.inatel.projetocinema.arquivo;
+package br.inatel.projetocinema.arquivocinema;
 
 import br.inatel.projetocinema.ingresso.Ingresso;
 import br.inatel.projetocinema.ingressointeira.IngressoInteira;

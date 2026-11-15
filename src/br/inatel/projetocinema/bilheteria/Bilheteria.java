@@ -1,6 +1,6 @@
 package br.inatel.projetocinema.bilheteria;
 
-import br.inatel.projetocinema.arquivo.ArquivoCinema;
+import br.inatel.projetocinema.arquivocinema.ArquivoCinema;
 import br.inatel.projetocinema.excecao.AssentoOcupadoException;
 import br.inatel.projetocinema.ingresso.Ingresso;
 import br.inatel.projetocinema.ingressointeira.IngressoInteira;
