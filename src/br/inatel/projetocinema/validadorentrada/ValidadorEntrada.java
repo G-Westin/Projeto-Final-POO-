@@ -1,16 +1,18 @@
 // Packages
 package br.inatel.projetocinema.validadorentrada;
 
-public class ValidadorEntrada {
+public final class ValidadorEntrada {
 
-    // Construtor
-    public ValidadorEntrada() {
+    private ValidadorEntrada() {
     }
 
     // Métodos
     public static boolean ehNumero(String texto) {
+        if (texto == null) {
+            return false;
+        }
         try {
-            Integer.parseInt(texto.trim());
+            Integer.parseInt(texto.strip());
             return true;
         } catch (NumberFormatException erro) {
             return false;
@@ -22,6 +24,7 @@ public class ValidadorEntrada {
     }
 
     public static boolean textoValido(String texto) {
-        return texto != null && !texto.trim().isEmpty() && !texto.contains("|");
+        return texto != null && !texto.isBlank() && !texto.contains("|")
+                && !texto.contains("\n") && !texto.contains("\r");
     }
 }

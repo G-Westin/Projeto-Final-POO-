@@ -4,10 +4,11 @@ package br.inatel.projetocinema.mensagenssistema;
 // Imports
 import br.inatel.projetocinema.venda.Venda;
 
-public class MensagensSistema {
+import java.util.Locale;
 
-    // Construtor
-    public MensagensSistema() {
+public final class MensagensSistema {
+
+    private MensagensSistema() {
     }
 
     // Métodos
@@ -43,6 +44,6 @@ public class MensagensSistema {
     }
 
     public static void totalVendas(double total) {
-        System.out.printf("Total da compra: R$%.2f%n", total);
+        System.out.printf(Locale.forLanguageTag("pt-BR"), "Total de vendas: R$ %.2f%n", total);
     }
 }

@@ -5,6 +5,7 @@ package br.inatel.projetocinema.atendimentobase;
 import br.inatel.projetocinema.atendimento.Atendimento;
 import br.inatel.projetocinema.mensagenssistema.MensagensSistema;
 import br.inatel.projetocinema.validadorentrada.ValidadorEntrada;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public abstract class AtendimentoBase implements Atendimento {
@@ -31,11 +32,10 @@ public abstract class AtendimentoBase implements Atendimento {
     @Override
     public String receberTexto(String mensagem) {
         while (true) {
-            System.out.print(mensagem);
-            String entrada = input.nextLine();
+            String entrada = lerLinha(mensagem);
 
             if (ValidadorEntrada.textoValido(entrada)) {
-                return entrada.trim();
+                return entrada.strip();
             }
             MensagensSistema.textoInvalido();
             int resposta = receberOpcao("Digitar novamente? (1 - Sim / 0 - Cancelar): ", 0, 1);
@@ -61,11 +61,10 @@ public abstract class AtendimentoBase implements Atendimento {
 
     public static int lerOpcao(String mensagem, int minimo, int maximo) {
         while (true) {
-            System.out.print(mensagem);
-            String entrada = input.nextLine();
+            String entrada = lerLinha(mensagem);
 
             if (ValidadorEntrada.ehNumero(entrada)) {
-                int opcao = Integer.parseInt(entrada.trim());
+                int opcao = Integer.parseInt(entrada.strip());
 
                 if (ValidadorEntrada.opcaoValida(opcao, minimo, maximo)) {
                     return opcao;
@@ -73,6 +72,14 @@ public abstract class AtendimentoBase implements Atendimento {
             }
             MensagensSistema.opcaoInvalida(minimo, maximo);
         }
+    }
+
+    private static String lerLinha(String mensagem) {
+        System.out.print(mensagem);
+        if (!input.hasNextLine()) {
+            throw new NoSuchElementException("Entrada encerrada.");
+        }
+        return input.nextLine();
     }
 
     public static void closeScanner() {

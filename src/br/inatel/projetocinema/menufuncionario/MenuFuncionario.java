@@ -20,11 +20,14 @@ public class MenuFuncionario extends AtendimentoBase {
         System.out.println("2 - Consultar sessões");
         System.out.println("3 - Vender ingresso");
         System.out.println("4 - Consultar vendas");
+        System.out.println("5 - Cadastrar filme");
+        System.out.println("6 - Cadastrar sala");
+        System.out.println("7 - Cadastrar sessão");
         System.out.println("0 - Encerrar atendimento");
     }
 
     @Override
     public int getTotalOpcoes() {
-        return 4;
+        return 7;
     }
 }

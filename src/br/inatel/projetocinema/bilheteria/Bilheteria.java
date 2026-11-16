@@ -24,20 +24,39 @@ public class Bilheteria {
 
     public Venda comprarIngresso(String nomeCliente, Sessao sessao, int assento, String tipo)
             throws AssentoOcupadoException {
+        Venda venda = prepararVenda(nomeCliente, sessao, assento, tipo);
+        registrarVenda(venda);
+        return venda;
+    }
+
+    // No atendimento, só confirma e ocupa o assento depois que a gravação funciona.
+    public Venda comprarIngresso(String nomeCliente, Sessao sessao, int assento, String tipo,
+                                  Path caminho) throws AssentoOcupadoException, IOException {
+        Venda venda = prepararVenda(nomeCliente, sessao, assento, tipo);
+        ArrayList<Venda> vendasAtualizadas = getVendas();
+        vendasAtualizadas.add(venda);
+        new ArquivoCinema(caminho).salvarVendas(vendasAtualizadas);
+        registrarVenda(venda);
+        return venda;
+    }
+
+    private Venda prepararVenda(String nomeCliente, Sessao sessao, int assento, String tipo)
+            throws AssentoOcupadoException {
         if (ultimoId == Integer.MAX_VALUE) {
             throw new IllegalStateException("Não há mais códigos de venda disponíveis.");
         }
         Ingresso ingresso = criarIngresso(tipo);
         Venda venda = new Venda(ultimoId + 1, nomeCliente, sessao, assento, ingresso);
-
         if (!sessao.assentoDisponivel(assento)) {
             throw new AssentoOcupadoException("O assento " + assento + " já está ocupado.");
         }
-
-        sessao.ocuparAssento(assento);
-        vendas.add(venda);
-        ultimoId = venda.getId();
         return venda;
+    }
+
+    private void registrarVenda(Venda venda) {
+        venda.getSessao().ocuparAssento(venda.getAssento());
+        vendas.add(venda);
+        ultimoId = Math.max(ultimoId, venda.getId());
     }
 
     private Ingresso criarIngresso(String tipo) {
@@ -101,9 +120,7 @@ public class Bilheteria {
         }
 
         for (Venda venda : recuperadas) {
-            venda.getSessao().ocuparAssento(venda.getAssento());
-            vendas.add(venda);
-            ultimoId = Math.max(ultimoId, venda.getId());
+            registrarVenda(venda);
         }
     }
 }
