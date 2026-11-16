@@ -6,12 +6,10 @@ import br.inatel.projetocinema.atendimentobase.AtendimentoBase;
 
 public class MenuCliente extends AtendimentoBase {
 
-    // Construtor
     public MenuCliente() {
         super();
     }
 
-    // Métodos
     @Override
     public void exibirMenu() {
         System.out.println();

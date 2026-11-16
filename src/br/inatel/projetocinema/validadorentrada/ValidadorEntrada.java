@@ -6,13 +6,12 @@ public final class ValidadorEntrada {
     private ValidadorEntrada() {
     }
 
-    // Métodos
     public static boolean ehNumero(String texto) {
         if (texto == null) {
             return false;
         }
         try {
-            Integer.parseInt(texto.strip());
+            Integer.parseInt(texto.trim());
             return true;
         } catch (NumberFormatException erro) {
             return false;

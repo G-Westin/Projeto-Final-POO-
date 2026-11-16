@@ -10,14 +10,11 @@ import java.util.Scanner;
 
 public abstract class AtendimentoBase implements Atendimento {
 
-    // Atributos
     private static final Scanner input = new Scanner(System.in);
 
-    // Construtor
     public AtendimentoBase() {
     }
 
-    // Métodos
     @Override
     public abstract void exibirMenu();
 
@@ -35,13 +32,13 @@ public abstract class AtendimentoBase implements Atendimento {
             String entrada = lerLinha(mensagem);
 
             if (ValidadorEntrada.textoValido(entrada)) {
-                return entrada.strip();
+                return entrada.trim();
             }
             MensagensSistema.textoInvalido();
             int resposta = receberOpcao("Digitar novamente? (1 - Sim / 0 - Cancelar): ", 0, 1);
 
             if (resposta == 0) {
-                return null;    // cancelou
+                return null;
             }
         }
     }
@@ -64,7 +61,7 @@ public abstract class AtendimentoBase implements Atendimento {
             String entrada = lerLinha(mensagem);
 
             if (ValidadorEntrada.ehNumero(entrada)) {
-                int opcao = Integer.parseInt(entrada.strip());
+                int opcao = Integer.parseInt(entrada.trim());
 
                 if (ValidadorEntrada.opcaoValida(opcao, minimo, maximo)) {
                     return opcao;

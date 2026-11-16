@@ -1,18 +1,19 @@
+// Packages
 package br.inatel.projetocinema.arquivoservidor;
 
+// Imports
 import br.inatel.projetocinema.arquivocinema.ArquivoCinema;
 import br.inatel.projetocinema.bilheteria.Bilheteria;
 import br.inatel.projetocinema.cinema.Cinema;
 import br.inatel.projetocinema.filme.Filme;
 import br.inatel.projetocinema.sala.Sala;
 import br.inatel.projetocinema.sessao.Sessao;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
-// Coordena arquivos locais do cinema. Não há servidor de rede.
 public class ArquivoServidor {
+
     private final ArquivoCinema arquivoFilmes;
     private final ArquivoCinema arquivoSalas;
     private final ArquivoCinema arquivoSessoes;

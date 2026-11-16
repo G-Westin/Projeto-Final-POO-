@@ -11,7 +11,6 @@ public final class MensagensSistema {
     private MensagensSistema() {
     }
 
-    // Métodos
     public static void boasVindas(String nomeCinema) {
         System.out.println("==================================================");
         System.out.printf("SEJA BEM VINDO AO %s%n", nomeCinema.toUpperCase());
