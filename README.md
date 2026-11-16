@@ -8,14 +8,15 @@ O atendimento é local. Não usa sockets, protocolos de rede nem threads na apli
 
 | Nome | Matrícula | Curso | Responsabilidade |
 |---|---|---|---|
-| Gabriel Westin Generoso Pontes | 635 | GES | Gerenciamento do cinema, bilheteria, persistência em arquivos e testes |
+| Lucas Mendoça de Almeida | 791 | GES | Gerenciamento do cinema |
+| Gabriel Westin Generoso Pontes | 635 | GES | Bilheteria, persistência em arquivos e testes |
 | Leandro Caminha Ramos Pereira | 9825 | GET | Atendimento, verificação de solicitações e integração |
 
-O grupo é formado por dois integrantes:
+O grupo é formado por três integrantes:
 
-Gabriel: gerenciamento do cinema (Cinema, Filme, Sala e Sessao), bilheteria (Bilheteria, Venda, Ingresso, IngressoInteira, IngressoMeia e AssentoOcupadoException), persistência em arquivos (ArquivoCinema e ArquivoTexto) e testes.
-
-Leandro: atendimento e verificação de solicitações (Atendimento, AtendimentoBase, MenuCliente, MenuFuncionario, ControladorAtendimento, ValidadorEntrada e MensagensSistema), Main e a integração dos módulos com ArquivoServidor.
+- **Lucas:** gerenciamento do cinema (`Cinema`, `Filme`, `Sala` e `Sessao`).
+- **Gabriel:** bilheteria (`Bilheteria`, `Venda`, `Ingresso`, `IngressoInteira`, `IngressoMeia` e `AssentoOcupadoException`), persistência em arquivos (`ArquivoCinema` e `ArquivoTexto`) e testes.
+- **Leandro:** atendimento e verificação de solicitações (`Atendimento`, `AtendimentoBase`, `MenuCliente`, `MenuFuncionario`, `ControladorAtendimento`, `ValidadorEntrada` e `MensagensSistema`), `Main` e a integração dos módulos com `ArquivoServidor`.
 
 ## Como compilar e executar
 
@@ -67,7 +68,7 @@ O perfil Funcionário é uma opção de menu, sem autenticação. Não há pagam
 
 ## Persistência e divisão dos módulos
 
-- **Gerenciamento do cinema (Gabriel):** `Cinema`, `Filme`, `Sala` e `Sessao`. O código da sessão é salvo no arquivo, independentemente da posição da linha.
+- **Gerenciamento do cinema (Lucas):** `Cinema`, `Filme`, `Sala` e `Sessao`. O código da sessão é salvo no arquivo, independentemente da posição da linha.
 - **Bilheteria e arquivos (Gabriel):** `Bilheteria`, `Venda`, `Ingresso`, suas subclasses, `AssentoOcupadoException` e `ArquivoCinema`, com o auxiliar `ArquivoTexto`. A compra do menu só é confirmada após a gravação. As vendas são carregadas depois do catálogo e restauram os assentos ocupados.
 - **Atendimento e integração (Leandro):** `Atendimento`, `AtendimentoBase`, os menus, `ControladorAtendimento`, `ValidadorEntrada`, `MensagensSistema`, `Main` e `ArquivoServidor`. Apesar do nome, `ArquivoServidor` apenas coordena arquivos locais.
 
@@ -97,6 +98,8 @@ Com o código compilado em `out/`, execute `python3 tests/test_cinenet.py` (ou `
 ## Uso de IA
 
 Declaramos o uso de ferramentas de IA generativa neste projeto.
+
+**Lucas Mendoça de Almeida.** Foi usado o **ChatGPT (OpenAI)** para tirar dúvidas sobre listas e relações entre classes em Java e para obter dicas de integração entre as classes de gerenciamento do cinema e as demais classes do projeto, desenvolvidas pelos colegas.
 
 **Gabriel Westin Generoso Pontes.** Foi usado **ChatGPT (OpenAI)** para apoiar o planejamento, a implementação inicial da bilheteria e da persistência, a revisão da versão integrada, as correções de código, os testes de integração (`tests/test_cinenet.py`) e a atualização deste README e do diagrama UML.
 
