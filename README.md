@@ -4,6 +4,19 @@ Sistema de cinema em Java para a disciplina de Programação Orientada a Objetos
 
 O atendimento é local. Não usa sockets, protocolos de rede nem threads na aplicação.
 
+## Integrantes
+
+| Nome | Matrícula | Curso | Responsabilidade |
+|---|---|---|---|
+| Gabriel Westin Generoso Pontes | 635 | GES | Gerenciamento do cinema, bilheteria, persistência em arquivos e testes |
+| Leandro Caminha Ramos Pereira | 9825 | GET | Atendimento, verificação de solicitações e integração |
+
+O grupo é formado por dois integrantes:
+
+Gabriel: gerenciamento do cinema (Cinema, Filme, Sala e Sessao), bilheteria (Bilheteria, Venda, Ingresso, IngressoInteira, IngressoMeia e AssentoOcupadoException), persistência em arquivos (ArquivoCinema e ArquivoTexto) e testes.
+
+Leandro: atendimento e verificação de solicitações (Atendimento, AtendimentoBase, MenuCliente, MenuFuncionario, ControladorAtendimento, ValidadorEntrada e MensagensSistema), Main e a integração dos módulos com ArquivoServidor.
+
 ## Como compilar e executar
 
 É necessário um **JDK 11 ou superior**. Execute os comandos na pasta que contém este README, pois o programa usa a pasta local `dados/`.
@@ -46,6 +59,7 @@ O perfil Funcionário é uma opção de menu, sem autenticação. Não há pagam
 | Classes, construtores e encapsulamento | `Filme`, `Sala`, `Sessao`, `Venda` e `Cinema`. Os objetos são inicializados pelos construtores, e os atributos não ficam expostos. |
 | Classe abstrata, herança e sobrescrita | `Ingresso` exige `calcularPreco()`, implementado de forma diferente em `IngressoInteira` e `IngressoMeia`. |
 | Polimorfismo | `Venda.getValor()` chama `calcularPreco()` por uma referência `Ingresso`. O controlador usa `Atendimento` com `MenuCliente` ou `MenuFuncionario`. |
+| Agregação e composição | `ControladorAtendimento` recebe `Cinema`, `Bilheteria`, `Atendimento` e `ArquivoServidor` criados no `Main` (agregação). `ArquivoServidor` cria e guarda três `ArquivoCinema` (composição). |
 | Interface e classe abstrata | `AtendimentoBase` implementa `Atendimento` e compartilha a leitura de entradas entre os menus. |
 | Arrays e coleções | `Sessao` usa `boolean[]` para assentos. `Cinema` e `Bilheteria` usam `ArrayList`. A carga das vendas usa `HashSet` para detectar duplicatas. |
 | Tratamento de erros | `AssentoOcupadoException` é lançada pela bilheteria e tratada no controlador. A inicialização bloqueia o atendimento se a leitura dos arquivos falhar. |
@@ -53,9 +67,9 @@ O perfil Funcionário é uma opção de menu, sem autenticação. Não há pagam
 
 ## Persistência e divisão dos módulos
 
-- **Gerenciamento do cinema:** `Cinema`, `Filme`, `Sala` e `Sessao`. O código da sessão é salvo no arquivo, independentemente da posição da linha.
-- **Bilheteria e arquivos:** `Bilheteria`, `Venda`, `Ingresso`, suas subclasses, `AssentoOcupadoException` e `ArquivoCinema`, com o auxiliar `ArquivoTexto`. A compra do menu só é confirmada após a gravação. As vendas são carregadas depois do catálogo e restauram os assentos ocupados.
-- **Atendimento e integração:** `Atendimento`, `AtendimentoBase`, os menus, `ControladorAtendimento`, `ValidadorEntrada`, `MensagensSistema`, `Main` e `ArquivoServidor`. Apesar do nome, `ArquivoServidor` apenas coordena arquivos locais.
+- **Gerenciamento do cinema (Gabriel):** `Cinema`, `Filme`, `Sala` e `Sessao`. O código da sessão é salvo no arquivo, independentemente da posição da linha.
+- **Bilheteria e arquivos (Gabriel):** `Bilheteria`, `Venda`, `Ingresso`, suas subclasses, `AssentoOcupadoException` e `ArquivoCinema`, com o auxiliar `ArquivoTexto`. A compra do menu só é confirmada após a gravação. As vendas são carregadas depois do catálogo e restauram os assentos ocupados.
+- **Atendimento e integração (Leandro):** `Atendimento`, `AtendimentoBase`, os menus, `ControladorAtendimento`, `ValidadorEntrada`, `MensagensSistema`, `Main` e `ArquivoServidor`. Apesar do nome, `ArquivoServidor` apenas coordena arquivos locais.
 
 Os arquivos de catálogo são incluídos para demonstração e podem ser alterados pelo menu de funcionário. `dados/vendas.txt` é criado na primeira compra e não é versionado. Não execute duas instâncias sobre a mesma pasta de dados.
 
@@ -70,13 +84,11 @@ Os arquivos de catálogo são incluídos para demonstração e podem ser alterad
 
 ## UML
 
-O [diagrama completo](docs/UML-completo.svg) contém todas as classes e os membros declarados. O [diagrama geral](docs/UML-CineNet.svg) resume as relações principais para projetar na apresentação. Para consultar os membros com mais facilidade, use os três detalhamentos:
+O [diagrama de classes completo](docs/UML-completo-final.svg) mostra todas as classes do projeto, com atributos, métodos, visibilidade e tipos. Há também a versão em [PNG](docs/UML-completo-final.png) e o código-fonte do desenho em [`UML-completo-final.dot`](docs/UML-completo-final.dot), usado para gerar as imagens. O diagrama foi gerado a partir do código-fonte final.
 
-- [Catálogo e sessões](docs/UML-catalogo.svg)
-- [Bilheteria e arquivos](docs/UML-bilheteria.svg)
-- [Atendimento e integração](docs/UML-atendimento.svg)
+Está organizado em camadas, com `Main` no topo. As cores indicam o módulo: roxo para o atendimento, azul para a bilheteria e os arquivos, e verde para o catálogo.
 
-Nos diagramas, `+` indica público, `-` privado, `#` protegido e `~` acesso de pacote. Membros estáticos aparecem sublinhados, operações abstratas em itálico e `{readOnly}` indica campo Java `final`. O triângulo vazio com linha contínua indica herança, e com linha tracejada indica realização de interface. As outras linhas tracejadas indicam dependência. O losango preenchido indica composição. Caixas marcadas como `«referência»` têm seu detalhamento em outro módulo ou são tipos da biblioteca padrão.
+Legenda: `+` indica público, `-` privado e `#` protegido. Membros estáticos aparecem sublinhados, operações abstratas em itálico e `{readOnly}` indica campo Java `final`. O triângulo vazio com linha contínua indica herança, e com linha tracejada indica realização de interface. O losango vazio indica agregação, e o losango cheio indica composição. A seta aberta tracejada indica dependência. O texto na linha é o nome do atributo que guarda a referência, e `0..*` indica que a classe guarda vários objetos. Sem número, é um só. A caixa `«referência»` é um tipo da biblioteca padrão.
 
 ## Testes
 
@@ -84,4 +96,11 @@ Com o código compilado em `out/`, execute `python3 tests/test_cinenet.py` (ou `
 
 ## Uso de IA
 
-Foi usado **ChatGPT (OpenAI)** para apoiar o planejamento, a implementação inicial da bilheteria e da persistência, a revisão da versão integrada, as correções de código, os testes de integração e a atualização deste README e do diagrama UML.
+Declaramos o uso de ferramentas de IA generativa neste projeto.
+
+**Gabriel Westin Generoso Pontes.** Foi usado **ChatGPT (OpenAI)** para apoiar o planejamento, a implementação inicial da bilheteria e da persistência, a revisão da versão integrada, as correções de código, os testes de integração (`tests/test_cinenet.py`) e a atualização deste README e do diagrama UML.
+
+**Leandro Caminha Ramos Pereira.** Foi usado o **Claude (Anthropic)** para apoiar na explicação de conceitos de POO como exception, métodos e recursos de Java como trim(), contains(), split(), Integer.parseInt() e de Java NIO, a geração do diagrama UML completo a partir do 
+código-fonte final, redação das partes deste README e sobre os integrantes.
+
+O código foi compilado, executado e testado pelos integrantes antes da entrega.
